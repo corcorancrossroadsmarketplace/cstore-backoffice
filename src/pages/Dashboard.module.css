@@ -1,0 +1,40 @@
+.layout { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+.body { display: flex; flex: 1; overflow: hidden; }
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-base); min-width: 0; }
+.empty { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 15px; }
+
+/* Toolbar */
+.toolbar { display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--bg-surface); border-bottom: 1px solid var(--border); flex-shrink: 0; flex-wrap: wrap; }
+.toolbarLabel { font-size: 11px; font-weight: 500; color: var(--text-secondary); margin-right: 2px; white-space: nowrap; }
+.filterBtn { padding: 4px 10px; font-size: 11px; border: 1px solid var(--border); border-radius: var(--radius); background: transparent; color: var(--text-secondary); cursor: pointer; white-space: nowrap; font-family: var(--font-ui); transition: all 0.15s; }
+.filterBtn:hover { background: var(--bg-highlight); color: var(--text-primary); }
+.filterActive { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }
+.customRange { display: flex; align-items: center; gap: 6px; }
+.dateInput { padding: 4px 8px; font-size: 11px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-input); color: var(--text-primary); font-family: var(--font-mono); cursor: pointer; }
+.dateSep { font-size: 11px; color: var(--text-secondary); }
+.applyBtn { padding: 4px 12px; font-size: 11px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-family: var(--font-ui); }
+
+/* Stats */
+.statsBar { display: flex; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.statCard { flex: 1; display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; background: var(--bg-surface); }
+.statLabel { font-size: 10px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+.statValue { font-family: var(--font-mono); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+
+/* Fuel strip */
+.fuelSection { flex-shrink: 0; border-bottom: 1px solid var(--border); }
+.fuelHeader { display: flex; align-items: center; gap: 6px; padding: 5px 14px; background: var(--bg-surface); border-bottom: 1px solid var(--border); }
+.fuelLiveDot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); animation: pulse 1.5s ease infinite; flex-shrink: 0; }
+.fuelTitle { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; color: var(--text-secondary); }
+.fuelStrip { display: flex; gap: 1px; background: var(--border); }
+.fuelGrade { flex: 1; padding: 8px 10px; background: var(--bg-surface); display: flex; flex-direction: column; gap: 2px; }
+.fuelGradeName { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fuelGallons { font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--orange); }
+.fuelAmount { font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary); }
+
+@media (max-width: 768px) {
+  .body { flex-direction: column; }
+  .statsBar { flex-wrap: wrap; }
+  .statCard { min-width: 45%; }
+  .fuelStrip { flex-wrap: wrap; }
+  .fuelGrade { min-width: 30%; }
+}

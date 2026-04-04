@@ -1,0 +1,247 @@
+╔══════════════════════════════════════════════════════════════╗
+║           C-STORE BACK OFFICE — SETUP GUIDE                 ║
+║           Written for non-technical users                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+You are going to do 4 things total.
+All of them are done from your personal computer or phone.
+Nothing gets installed on your personal computer.
+Your stores and Commander are NOT touched until the very last step.
+
+Estimated total time: 30 minutes
+
+What you need:
+  → A computer with internet access
+  → Your 4 store names and cities
+  → This guide open on screen
+
+══════════════════════════════════════════════════════════════
+ STEP 1 — CREATE YOUR DATABASE
+ Where your sales data gets stored
+ Time: 5 minutes
+ Website: neon.tech
+══════════════════════════════════════════════════════════════
+
+ 1. Go to: https://neon.tech
+ 2. Click "Sign Up" — easiest to use Google sign in
+ 3. Click "New Project"
+ 4. In the Name field type: cstore
+ 5. Click "Create Project"
+
+ A screen appears with a connection string.
+ It starts with: postgresql://...
+
+ ★ IMPORTANT: Copy that entire line right now.
+   Paste it into a Notes app or email it to yourself.
+   You will need it in Step 3. Do not skip this.
+
+ 6. Click "SQL Editor" on the left side menu
+ 7. You will see a blank text box
+ 8. Open the file called "schema.sql" from the ZIP you downloaded
+    (open it in Notepad — right click → Open With → Notepad)
+ 9. Press Ctrl+A to select all the text, then Ctrl+C to copy it
+10. Click inside the SQL Editor box on the neon.tech website
+11. Press Ctrl+V to paste it
+12. Click the "Run" button
+
+ You should see a message saying it succeeded.
+
+13. Now DELETE everything in the SQL Editor box
+14. Type this exactly:
+      SELECT name, agent_api_key FROM stores;
+15. Click Run
+
+ You will see a table with 4 rows.
+ ★ IMPORTANT: Copy the entire table and save it somewhere.
+   (Take a screenshot or copy/paste into Notes)
+   These are your 4 store API keys. You will need them in Step 4.
+
+
+══════════════════════════════════════════════════════════════
+ STEP 2 — PUT YOUR FILES ON GITHUB
+ A free place to store your code
+ Time: 5 minutes
+ Website: github.com
+══════════════════════════════════════════════════════════════
+
+ 1. Go to: https://github.com
+ 2. Click "Sign up" — use your email
+ 3. Once logged in, click the "+" icon in the top right corner
+ 4. Click "New repository"
+ 5. In the "Repository name" field type: cstore-backoffice
+ 6. Make sure "Public" is selected
+ 7. Click "Create repository"
+
+ You will see a page with some text on it. Look for the line that says:
+ "uploading an existing file" — click those words.
+
+ 8. A file upload box appears
+ 9. Open the ZIP file you downloaded from me
+    Extract it (right click → Extract All)
+10. Open the extracted folder
+11. Select ALL files and folders EXCEPT the "agent" folder
+    (hold Ctrl and click each one, or press Ctrl+A then Ctrl-click
+    the "agent" folder to deselect it)
+12. Drag them all into the upload box on the GitHub website
+13. Scroll down and click "Commit changes"
+
+ Wait for the upload to finish. You will be taken back to your
+ repository page showing all your files. That means it worked. ✓
+
+
+══════════════════════════════════════════════════════════════
+ STEP 3 — DEPLOY YOUR DASHBOARD
+ This creates your actual website
+ Time: 10 minutes
+ Website: vercel.com
+══════════════════════════════════════════════════════════════
+
+ 1. Go to: https://vercel.com
+ 2. Click "Sign Up"
+ 3. Click "Continue with GitHub" — sign in with the GitHub
+    account you just created
+
+ 4. Click "Add New..." then click "Project"
+ 5. You will see "cstore-backoffice" in the list
+    Click "Import" next to it
+
+ 6. ★ IMPORTANT — Before clicking Deploy, look for
+    "Environment Variables" and click to expand it.
+    Add these 3 items one at a time:
+
+    ┌─────────────────┬──────────────────────────────────────────┐
+    │ NAME            │ VALUE                                    │
+    ├─────────────────┼──────────────────────────────────────────┤
+    │ DATABASE_URL    │ Paste the postgresql:// line from Step 1 │
+    │ JWT_SECRET      │ Make up any password (20+ characters)    │
+    │                 │ Example: MyStoreSecret2024BackOffice!    │
+    │ SETUP_SECRET    │ Make up a short password                 │
+    │                 │ Example: Setup2024!                      │
+    └─────────────────┴──────────────────────────────────────────┘
+
+    For each one:
+    - Type the NAME in the left box
+    - Type the VALUE in the right box
+    - Click "Add"
+
+ 7. Click "Deploy"
+
+ Wait about 1-2 minutes. When you see "Congratulations" it is done.
+
+ ★ IMPORTANT: Copy your website URL at the top of the screen.
+   It looks like: https://cstore-backoffice-abc123.vercel.app
+   Save this. This is YOUR dashboard address forever.
+
+ 8. Now you need to create your login. Open a new browser tab
+    and go to this website: https://reqbin.com
+
+ 9. Change the dropdown box at the left from GET to POST
+
+10. In the URL bar on reqbin.com type:
+      https://YOUR-VERCEL-URL/api/auth/setup
+    Replace YOUR-VERCEL-URL with the URL you just saved.
+    Example: https://cstore-backoffice-abc123.vercel.app/api/auth/setup
+
+11. Below the URL bar, click the "Content" tab
+    Then click "JSON" from the dropdown
+
+12. In the big white box, paste this:
+    {
+      "setup_secret": "YOUR_SETUP_SECRET",
+      "name": "Your Full Name",
+      "email": "your@email.com",
+      "password": "YourPassword123"
+    }
+
+    Replace each item with your real info:
+    - YOUR_SETUP_SECRET → the SETUP_SECRET you set above (e.g. Setup2024!)
+    - Your Full Name → your actual name
+    - your@email.com → your email address
+    - YourPassword123 → a password you will use to log in (8+ characters)
+
+13. Click "Send"
+
+    You should see: "Owner account created successfully"
+    If you see an error, double check the setup_secret matches exactly.
+
+14. Now go to your dashboard URL in a new tab.
+    Log in with the email and password you just set.
+
+ If you see your dashboard with 4 stores listed — YOU ARE DONE WITH STEP 3. ✓
+
+
+══════════════════════════════════════════════════════════════
+ STEP 4 — CONNECT EACH STORE
+ Your manager does this at each store
+ Time: 10 minutes per store
+══════════════════════════════════════════════════════════════
+
+ For each store you will need:
+   → That store's API key (you saved these at the end of Step 1)
+   → Your dashboard URL (from Step 3)
+
+ Instructions to give your manager:
+
+ ─────────────────────────────────────────────────────────────
+  MANAGER INSTRUCTIONS (do this at each store)
+ ─────────────────────────────────────────────────────────────
+
+  1. Sit down at the back office computer
+
+  2. Make sure the ethernet cable going from this computer
+     to the Cybera router is plugged in on both ends
+
+  3. Open a browser (Chrome, Firefox, or IE)
+     Type this in the address bar and press Enter:
+       https://192.168.31.11/ConfigClient.html
+     If a login page appears, the connection is working. Good.
+     (You do NOT need to log in — just confirming it loads)
+
+  4. Open a new browser tab
+     Go to:  YOUR-DASHBOARD-URL/download
+     (the owner will give you the full address)
+
+  5. Click "Download Agent for Windows"
+
+  6. When the download finishes, find the file in the Downloads folder
+     Right-click it → "Run as administrator"
+     Click Yes if Windows asks for permission
+
+  7. A black window opens and runs automatically
+     When it asks questions, type:
+       Store API Key: (owner gives you this for THIS specific store)
+       Then press Enter for all other questions
+
+  8. The window closes by itself when finished
+     Wait 2 minutes then tell the owner to check the dashboard
+     The store should show a green dot that says LIVE
+
+  If anything goes wrong, there will be a shortcut on the
+  Desktop called "C-Store Agent Log" — double-click it and
+  send a photo of the screen to the owner.
+
+ ─────────────────────────────────────────────────────────────
+
+
+══════════════════════════════════════════════════════════════
+ YOU ARE DONE
+══════════════════════════════════════════════════════════════
+
+ Bookmark your dashboard URL on your phone and computer.
+ You can now see live sales at any store from anywhere in the world.
+
+ Dashboard URL: ________________________________
+                (write it here after Step 3)
+
+ If a store ever goes OFFLINE:
+   → Check that the back office PC is turned on
+   → Check the ethernet cable is plugged into the Cybera router
+   → Check the Agent Log shortcut on that store's desktop
+
+══════════════════════════════════════════════════════════════
+ NEED HELP?
+══════════════════════════════════════════════════════════════
+
+ If you get stuck at any step, come back and describe exactly
+ which step you are on and what you see on the screen.
+ We will fix it together.

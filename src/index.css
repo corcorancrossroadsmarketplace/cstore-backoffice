@@ -1,0 +1,195 @@
+/* ============================================================
+   C-Store Back Office — Global Styles
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Core palette */
+  --bg-base:        #070b14;
+  --bg-surface:     #0d1321;
+  --bg-card:        #111827;
+  --bg-card-hover:  #151e30;
+  --bg-input:       #0d1321;
+  --bg-highlight:   #1a2540;
+
+  /* Borders */
+  --border:         #1e2d45;
+  --border-focus:   #2563eb;
+
+  /* Text */
+  --text-primary:   #e2e8f0;
+  --text-secondary: #64748b;
+  --text-muted:     #334155;
+  --text-link:      #38bdf8;
+
+  /* Accents */
+  --accent:         #2563eb;
+  --accent-light:   #3b82f6;
+  --accent-glow:    rgba(37, 99, 235, 0.15);
+
+  /* Status colors */
+  --green:          #22c55e;
+  --green-dim:      rgba(34, 197, 94, 0.12);
+  --red:            #f43f5e;
+  --red-dim:        rgba(244, 63, 94, 0.12);
+  --yellow:         #f59e0b;
+  --yellow-dim:     rgba(245, 158, 11, 0.12);
+  --blue:           #38bdf8;
+  --blue-dim:       rgba(56, 189, 248, 0.10);
+  --orange:         #fb923c;
+  --orange-dim:     rgba(251, 146, 60, 0.12);
+
+  /* Typography */
+  --font-ui:        'DM Sans', -apple-system, sans-serif;
+  --font-mono:      'JetBrains Mono', 'Courier New', monospace;
+
+  /* Spacing */
+  --radius-sm:      4px;
+  --radius:         8px;
+  --radius-lg:      12px;
+  --radius-xl:      16px;
+
+  /* Shadows */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.4);
+  --shadow:         0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Utility classes */
+.mono { font-family: var(--font-mono); }
+.text-green { color: var(--green); }
+.text-red { color: var(--red); }
+.text-yellow { color: var(--yellow); }
+.text-blue { color: var(--blue); }
+.text-muted { color: var(--text-secondary); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: var(--accent-light); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--bg-highlight);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input:focus { border-color: var(--border-focus); }
+.input::placeholder { color: var(--text-muted); }
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-red   { background: var(--red-dim);   color: var(--red); }
+.badge-yellow{ background: var(--yellow-dim);color: var(--yellow); }
+.badge-blue  { background: var(--blue-dim);  color: var(--blue); }
+.badge-orange{ background: var(--orange-dim);color: var(--orange); }
+
+/* Pulse dot for live status */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s ease-in-out infinite;
+  display: inline-block;
+}
+.pulse-dot.offline { background: var(--text-muted); animation: none; }
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.2s ease forwards; }
+
+/* Slide in from top for new transactions */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide-down { animation: slideDown 0.25s ease forwards; }
