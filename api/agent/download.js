@@ -1,9 +1,9 @@
 // api/agent/download.js
 // GET /api/agent/download
 // Serves the agent installer .bat file as a download
-// Only accessible to logged-in users
+// No auth required - installer is not sensitive
 
-import { requireAuth, setCors } from '../_lib/db.js'
+import { setCors } from '../_lib/db.js'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -11,8 +11,6 @@ export default async function handler(req, res) {
   setCors(res)
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  const user = await requireAuth(req, res)
-  if (!user) return
 
   // The install.bat content — served as a download
   // This is the exact same install.bat from the agent folder,
